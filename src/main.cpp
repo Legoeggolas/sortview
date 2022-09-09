@@ -11,6 +11,7 @@ int main() {
     int const screenHeight = 1080;
 
     // Define vector and some bound metadata
+    // TODO Make the vector size an explicit constant
     std::vector<int> vec(500);
     int const elementLowerBound = 1;
     int const elementUpperBound = 100;
