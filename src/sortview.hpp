@@ -3,6 +3,7 @@
 
 #include <deque>
 #include <iostream>
+#include <utility>
 #include <vector>
 
 #include "../include/raylib-cpp.hpp"
@@ -13,7 +14,9 @@
  * WRITE identifies a write operation.
  */
 enum OP { READ,
-          WRITE };
+          WRITE,
+          SWAP,
+          COMPARE };
 
 /**
  * @brief A utility class that stores the data related to a single operation.
@@ -22,20 +25,36 @@ enum OP { READ,
 class QueueItem {
    public:
     OP type;
-    size_t pos;
+    std::pair<size_t, size_t> pos;
     int val;
 
     /**
      * @brief Construct a new Queue Item object.
      *
      * @param _type The type of the operation, supports the OP enumerator.
-     * @param _pos The vector position this operation is performed on.
+     * @param _pos The vector position this operation was performed on.
      * @param _val Optional. The updated value in this position. Defaults to 0.
      */
     QueueItem(OP _type, size_t _pos, int _val = 0) {
         type = _type;
-        pos = _pos;
+        pos.first = _pos;
+        pos.second = _pos;
         val = _val;
+    }
+
+    /**
+     * @brief Construct a new Queue Item object.
+     *
+     * @param _type The type of the operation, supports the OP enumerator.
+     * @param _pos A pair of vector positions this operation was performed on.
+     */
+    QueueItem(OP _type, std::pair<size_t, size_t> _pos) {
+        type = _type;
+        pos = _pos;
+    }
+
+    bool validPos(size_t _pos) {
+        return (_pos == pos.first || _pos == pos.second);
     }
 };
 
@@ -53,6 +72,12 @@ class SortViewer {
     int elementUpperBound;           // the maximum possible value of an element
     int elementLowerBound;           // the minimum possible value of an element
     std::deque<QueueItem> opBuffer;  // a queue of operations performed by an algorithm
+
+    static raylib::Color const readColor;
+    static raylib::Color const writeColor;
+    static raylib::Color const swapColor;
+    static raylib::Color const compColor;
+    static raylib::Color const elementColor;
 
    public:
     std::deque<QueueItem>::iterator currOpBufferItem;  // public iterator to the operation buffer
@@ -95,8 +120,12 @@ class SortViewer {
      */
     void removeBufferItem() {
         if (opBuffer.empty() == false) {
-            if (currOpBufferItem->type == WRITE) {
-                vec[currOpBufferItem->pos] = currOpBufferItem->val;
+            auto &item = currOpBufferItem;
+            if (item->type == WRITE) {
+                vec[item->pos.first] = item->val;
+            } else if (currOpBufferItem->type == SWAP) {
+                auto const &[first, second] = item->pos;
+                std::swap(vec[first], vec[second]);
             }
             opBuffer.pop_front();
 
@@ -123,6 +152,26 @@ class SortViewer {
     void read(size_t pos) {
         opBuffer.push_back(QueueItem(READ, pos));
         // return vec[pos];
+    }
+
+    /**
+     * @brief Records a comparison operation
+     *
+     * @param pos One of the positions being compared.
+     * @param other The other position being compared.
+     */
+    void compare(size_t pos, size_t other) {
+        opBuffer.push_back(QueueItem(COMPARE, {pos, other}));
+    }
+
+    /**
+     * @brief Records a swap operation.
+     *
+     * @param pos One of the positions having their values swapped.
+     * @param other The other position having its value swapped.
+     */
+    void swap(size_t pos, size_t other) {
+        opBuffer.push_back(QueueItem(SWAP, {pos, other}));
     }
 
     /**

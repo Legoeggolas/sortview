@@ -8,8 +8,7 @@ void in_sort(std::vector<int> &vec, size_t begin, size_t end, SortViewer &viewer
         // find a position for the new element in the sorted section
         size_t pos = begin;
         for (; pos < curr; pos++) {
-            viewer.read(pos);
-            viewer.read(temp);
+            viewer.compare(pos, temp);
             if (vec[pos] > temp) {
                 break;
             }

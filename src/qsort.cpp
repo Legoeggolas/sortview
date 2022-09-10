@@ -10,25 +10,29 @@ int _partition(std::vector<int> &arr, size_t lo, size_t hi, SortViewer &viewer) 
     // assert(pvt >= lo && pvt < hi);
 
     // put the pivot element at the end of the array
-    viewer.write(hi - 1, arr[pvt]);
-    viewer.write(pvt, arr[hi - 1]);
+    // viewer.write(hi - 1, arr[pvt]);
+    // viewer.write(pvt, arr[hi - 1]);
+    viewer.swap(pvt, hi - 1);
     std::swap(arr.at(pvt), arr.at(hi - 1));
     //_swap(arr, pvt, hi - 1, size);
 
     int index = lo - 1;  // stores the pos after which all elements are larger than our pivot
 
     for (int seeker = lo; seeker < hi - 1; seeker++) {
+        viewer.compare(seeker, hi - 1);
         if (arr[seeker] < arr[hi - 1]) {
-            viewer.write(seeker, arr[index + 1]);
-            viewer.write(index + 1, arr[seeker]);
+            // viewer.write(seeker, arr[index + 1]);
+            // viewer.write(index + 1, arr[seeker]);
+            viewer.swap(seeker, index + 1);
             std::swap(arr.at(seeker), arr.at(index + 1));
             //_swap(arr, index + 1, seeker, size);
             index++;
         }
     }
     // place the pivot in its proper position
-    viewer.write(index + 1, arr[hi - 1]);
-    viewer.write(hi - 1, arr[index + 1]);
+    // viewer.write(index + 1, arr[hi - 1]);
+    // viewer.write(hi - 1, arr[index + 1]);
+    viewer.swap(index + 1, hi - 1);
     std::swap(arr.at(index + 1), arr.at(hi - 1));
     //_swap(arr, index + 1, hi - 1, size);
 

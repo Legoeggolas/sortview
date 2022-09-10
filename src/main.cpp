@@ -14,7 +14,7 @@ int main() {
 
     // Define vector and some bound metadata
     // TODO Make the vector size an explicit constant
-    std::vector<int> vec(50);
+    std::vector<int> vec(500);
     int const elementLowerBound = 1;
     int const elementUpperBound = 100;
 
@@ -34,10 +34,10 @@ int main() {
     auto temp(vec);
 
     // Send the copy as a parameter to a sorting algorithm
-    // q_sort(temp, 0, vec.size(), msv);
+    q_sort(temp, 0, vec.size(), msv);
     // m_sort(vec, 0, vec.size(), msv);
-    // in_sort(vec, 0, vec.size(), msv);
-    sel_sort(vec, 0, vec.size(), msv);
+    //  in_sort(vec, 0, vec.size(), msv);
+    //  sel_sort(vec, 0, vec.size(), msv);
 
     // Initialize buffer iterator
     msv.setBufferItem();

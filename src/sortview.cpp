@@ -1,5 +1,11 @@
 #include "sortview.hpp"
 
+raylib::Color const SortViewer::readColor = raylib::Color(WHITE);
+raylib::Color const SortViewer::writeColor = raylib::Color(GREEN);
+raylib::Color const SortViewer::swapColor = raylib::Color(GREEN);
+raylib::Color const SortViewer::compColor = raylib::Color(WHITE);
+raylib::Color const SortViewer::elementColor = raylib::Color(RED);
+
 void SortViewer::display(raylib::Vector2 windowDims) {
     // centre of the line on which the visualizaton will be drawn
     raylib::Vector2 centre(windowDims.x / 2, (9 * windowDims.y) / 10);
@@ -26,11 +32,19 @@ void SortViewer::display(raylib::Vector2 windowDims) {
 
         // highlight elements being operated on
         raylib::Color currColor;
-        if (!checkBuffer() && pos == currOpBufferItem->pos) {
-            currColor = WHITE;
-
+        if (!checkBuffer() && currOpBufferItem->validPos(pos)) {
+            auto itemType = currOpBufferItem->type;
+            if (itemType == READ) {
+                currColor = readColor;
+            } else if (itemType == WRITE) {
+                currColor = writeColor;
+            } else if (itemType == COMPARE) {
+                currColor = compColor;
+            } else {
+                currColor = swapColor;
+            }
         } else {
-            currColor = RED;
+            currColor = elementColor;
         }
 
         auto const currElement = vec[pos];

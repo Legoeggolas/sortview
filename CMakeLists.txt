@@ -4,6 +4,10 @@ project(sortview VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
+add_compile_options(
+  /std:c++17
+)
+
 add_library(raylib::raylib SHARED IMPORTED)
 set_target_properties(
   raylib::raylib
