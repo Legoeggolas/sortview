@@ -36,8 +36,8 @@ int main() {
     // Send the copy as a parameter to a sorting algorithm
     // q_sort(temp, 0, vec.size(), msv);
     // m_sort(vec, 0, vec.size(), msv);
-    in_sort(vec, 0, vec.size(), msv);
-    // sel_sort(vec, 0, vec.size(), msv);
+    // in_sort(vec, 0, vec.size(), msv);
+    sel_sort(vec, 0, vec.size(), msv);
 
     // Initialize buffer iterator
     msv.setBufferItem();

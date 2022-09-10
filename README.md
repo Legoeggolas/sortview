@@ -3,18 +3,21 @@ A sorting visualizer written in C++ using Raylib.
 Currently supports:
 * Merge Sort
 * Quick Sort
-
-Planned to include:
 * Selection Sort
 * Insertion Sort
-* Bubble Sort
-  
+
+Planned to include:
+* Nothing! All planned algorithms have been added.
+
+Features:
+* Different indicators for reads and writes.
+
 Features not yet added:
 * A menu with selectable algorithms
 * Adjustable vector size
 * Pre-sorted / Reverse-sorted orientatons
 * Stat counter (number of swaps/writes/reads/etc)
-* Better indicators (look ahead, swap, different color for different recursion depths, etc)
+
 
 # Made Using
 * Raylib 4.2
