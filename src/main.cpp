@@ -2,8 +2,10 @@
 
 #include "../include/raylib-cpp.hpp"
 #include "../include/raylib.h"
+#include "insort.hpp"
 #include "msort.hpp"
 #include "qsort.hpp"
+#include "selsort.hpp"
 #include "sortview.hpp"
 
 int main() {
@@ -12,7 +14,7 @@ int main() {
 
     // Define vector and some bound metadata
     // TODO Make the vector size an explicit constant
-    std::vector<int> vec(500);
+    std::vector<int> vec(50);
     int const elementLowerBound = 1;
     int const elementUpperBound = 100;
 
@@ -33,7 +35,9 @@ int main() {
 
     // Send the copy as a parameter to a sorting algorithm
     // q_sort(temp, 0, vec.size(), msv);
-    m_sort(vec, 0, vec.size(), msv);
+    // m_sort(vec, 0, vec.size(), msv);
+    // in_sort(vec, 0, vec.size(), msv);
+    sel_sort(vec, 0, vec.size(), msv);
 
     // Initialize buffer iterator
     msv.setBufferItem();
