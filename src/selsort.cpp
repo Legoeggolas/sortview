@@ -1,4 +1,4 @@
-#include "selsort.hpp"
+#include "../include/selsort.hpp"
 
 void sel_sort(std::vector<int> &vec, size_t begin, size_t end, SortViewer &viewer) {
     for (size_t curr = begin; curr < end; curr++) {

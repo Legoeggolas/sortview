@@ -1,12 +1,12 @@
 #include <random>
 
+#include "../include/insort.hpp"
+#include "../include/msort.hpp"
+#include "../include/qsort.hpp"
 #include "../include/raylib-cpp.hpp"
 #include "../include/raylib.h"
-#include "insort.hpp"
-#include "msort.hpp"
-#include "qsort.hpp"
-#include "selsort.hpp"
-#include "sortview.hpp"
+#include "../include/selsort.hpp"
+#include "../include/sortview.hpp"
 
 int main() {
     int const screenWidth = 1920;

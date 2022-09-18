@@ -1,4 +1,4 @@
-#include "insort.hpp"
+#include "../include/insort.hpp"
 
 void in_sort(std::vector<int> &vec, size_t begin, size_t end, SortViewer &viewer) {
     for (size_t curr = begin + 1; curr < end; curr++) {

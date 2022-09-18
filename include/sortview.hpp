@@ -35,12 +35,7 @@ class QueueItem {
      * @param _pos The vector position this operation was performed on.
      * @param _val Optional. The updated value in this position. Defaults to 0.
      */
-    QueueItem(OP _type, size_t _pos, int _val = 0) {
-        type = _type;
-        pos.first = _pos;
-        pos.second = _pos;
-        val = _val;
-    }
+    QueueItem(OP _type, size_t _pos, int _val = 0);
 
     /**
      * @brief Construct a new Queue Item object.
@@ -48,14 +43,16 @@ class QueueItem {
      * @param _type The type of the operation, supports the OP enumerator.
      * @param _pos A pair of vector positions this operation was performed on.
      */
-    QueueItem(OP _type, std::pair<size_t, size_t> _pos) {
-        type = _type;
-        pos = _pos;
-    }
+    QueueItem(OP _type, std::pair<size_t, size_t> _pos);
 
-    bool validPos(size_t _pos) {
-        return (_pos == pos.first || _pos == pos.second);
-    }
+    /**
+     * @brief Checks whether a given position exists inside a QueueItem.
+     *
+     * @param _pos
+     * @return true The position exists inside the object.
+     * @return false The position does not exist inside the object.
+     */
+    bool validPos(size_t _pos);
 };
 
 /**
@@ -89,19 +86,13 @@ class SortViewer {
      * @param _lb Optional. The minimum possible value of an element. Defaults to 1.
      * @param _ub Optional. The maximum possible value of an element. Defaults tp 1024.
      */
-    SortViewer(std::vector<int> &_vec, int _lb = 1, int _ub = 1024) {
-        vec = _vec;
-        elementUpperBound = _ub;
-        elementLowerBound = _lb;
-    }
+    SortViewer(std::vector<int> &_vec, int _lb = 1, int _ub = 1024);
 
     /**
      * @brief Set the Buffer Item iterator.
      *
      */
-    void setBufferItem() {
-        currOpBufferItem = opBuffer.begin();
-    }
+    void setBufferItem();
 
     /**
      * @brief Checks whether the operation buffer is empty or not.
@@ -109,29 +100,14 @@ class SortViewer {
      * @return true if the buffer is empty.
      * @return false if the buffer is not empty.
      */
-    bool checkBuffer() {
-        return opBuffer.empty();
-    }
+    bool checkBuffer();
 
     /**
      * @brief Removes the operation at the front of the operation buffer.
      * Resets the currOpBufferItem iterator.
      *
      */
-    void removeBufferItem() {
-        if (opBuffer.empty() == false) {
-            auto &item = currOpBufferItem;
-            if (item->type == WRITE) {
-                vec[item->pos.first] = item->val;
-            } else if (currOpBufferItem->type == SWAP) {
-                auto const &[first, second] = item->pos;
-                std::swap(vec[first], vec[second]);
-            }
-            opBuffer.pop_front();
-
-            currOpBufferItem = opBuffer.begin();
-        }
-    }
+    void removeBufferItem();
 
     /**
      * @brief Records a write operation.
@@ -139,20 +115,14 @@ class SortViewer {
      * @param pos The position that gets written to.
      * @param value The value that gets written to this position.
      */
-    void write(size_t pos, int value) {
-        // vec[pos] = value;
-        opBuffer.push_back(QueueItem(WRITE, pos, value));
-    }
+    void write(size_t pos, int value);
 
     /**
      * @brief Records a read operation.
      *
      * @param pos The position that gets read from.
      */
-    void read(size_t pos) {
-        opBuffer.push_back(QueueItem(READ, pos));
-        // return vec[pos];
-    }
+    void read(size_t pos);
 
     /**
      * @brief Records a comparison operation
@@ -160,9 +130,7 @@ class SortViewer {
      * @param pos One of the positions being compared.
      * @param other The other position being compared.
      */
-    void compare(size_t pos, size_t other) {
-        opBuffer.push_back(QueueItem(COMPARE, {pos, other}));
-    }
+    void compare(size_t pos, size_t other);
 
     /**
      * @brief Records a swap operation.
@@ -170,9 +138,7 @@ class SortViewer {
      * @param pos One of the positions having their values swapped.
      * @param other The other position having its value swapped.
      */
-    void swap(size_t pos, size_t other) {
-        opBuffer.push_back(QueueItem(SWAP, {pos, other}));
-    }
+    void swap(size_t pos, size_t other);
 
     /**
      * @brief Displays the current state of the internal vector.
