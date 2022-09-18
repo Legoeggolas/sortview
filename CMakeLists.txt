@@ -26,6 +26,7 @@ add_executable(sortview
         "${PROJECT_SOURCE_DIR}/src/qsort.cpp"
         "${PROJECT_SOURCE_DIR}/src/insort.cpp"
         "${PROJECT_SOURCE_DIR}/src/selsort.cpp"
+        "${PROJECT_SOURCE_DIR}/src/state.cpp"
 )
 target_link_libraries(sortview PRIVATE raylib::raylib)
 
