@@ -18,6 +18,12 @@ std::unique_ptr<SortViewer> State::genSortViewer() {
             return dist(engine);
         });
 
+    if (status == SORTED) {
+        std::sort(vec.begin(), vec.end());
+    } else if (status == REVERSE) {
+        std::sort(vec.begin(), vec.end(), std::greater<int>());
+    }
+
     auto msv = std::unique_ptr<SortViewer>{new SortViewer(vec, elementLowerBound, elementUpperBound)};
     return msv;
 }
