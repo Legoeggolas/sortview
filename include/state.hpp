@@ -13,8 +13,9 @@ class State {
     int elementLowerBound;
     int elementUpperBound;
     size_t vec_size;
+    int fps;
 
-    State(size_t _vec_size, int _lb = 1, int _ub = 1024);
+    State(size_t _vec_size, int _lb = 1, int _ub = 1024, int _fps = 60);
 
     std::unique_ptr<SortViewer> genSortViewer();
 };

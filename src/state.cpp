@@ -1,9 +1,10 @@
 #include "../include/state.hpp"
 
-State::State(size_t _vec_size, int _lb, int _ub) {
+State::State(size_t _vec_size, int _lb, int _ub, int _fps) {
     vec_size = _vec_size;
     elementLowerBound = _lb;
     elementUpperBound = _ub;
+    fps = _fps;
 }
 
 std::unique_ptr<SortViewer> State::genSortViewer() {
