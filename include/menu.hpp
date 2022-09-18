@@ -17,8 +17,11 @@ class UIElement {
    public:
     UIElement(raylib::Vector2 _pos, raylib::Vector2 _dim, raylib::Text _txt);
 
+    bool posInElement(raylib::Vector2 _pos);
+
     virtual void display() = 0;
     virtual void onClick() = 0;
+    virtual void onOtherClick() = 0;
 };
 
 class Button : public UIElement {
@@ -28,6 +31,7 @@ class Button : public UIElement {
 
     void display();
     void onClick();
+    void onOtherClick();
 };
 
 class Slider : public UIElement {
@@ -40,9 +44,10 @@ class Slider : public UIElement {
 
     void display();
     void onClick();
+    void onOtherClick();
 };
 
-using Element = std::shared_ptr<UIElement>;
+using Element = std::pair<std::shared_ptr<UIElement>, size_t>;
 class Menu {
    private:
     std::vector<Element> elements;
@@ -52,6 +57,7 @@ class Menu {
 
     void addElement(Element ele);
     void display();
+    void onClick(raylib::Vector2 pos);
 };
 
 #endif MENU_H

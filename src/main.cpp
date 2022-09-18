@@ -39,8 +39,11 @@ int main() {
     SetTargetFPS(state.fps);
 
     Menu menu{};
-    menu.addElement(std::unique_ptr<UIElement>{new Button({screenWidth / 2, screenHeight / 2}, {200, 200}, raylib::Text("Jerry", 30, BLACK))});
+    menu.addElement({std::unique_ptr<UIElement>{new Button({2 * screenWidth / 5, screenHeight / 2}, {200, 200}, raylib::Text("Jerry", 30, BLACK))}, 1});
+    menu.addElement({std::unique_ptr<UIElement>{new Button({4 * screenWidth / 5, screenHeight / 2}, {200, 200}, raylib::Text("Jerry", 30, BLACK))}, 1});
 
+    bool mbPressed = false;
+    bool mbReleased = true;
     while (!window.ShouldClose()) {
         BeginDrawing();
 
@@ -48,6 +51,10 @@ int main() {
         // msv->display({screenWidth, screenHeight});
         menu.display();
         EndDrawing();
+
+        if (raylib::Mouse::IsButtonPressed(MOUSE_BUTTON_LEFT)) {
+            menu.onClick(raylib::Mouse::GetPosition());
+        }
 
         // msv->removeBufferItem();  // go to the next buffer item
     }
