@@ -9,6 +9,8 @@ UIElement::UIElement(raylib::Vector2 _pos, raylib::Vector2 _dim, raylib::Text _t
 
     ID = constructs;
 
+    std::cout << "Created UIElement called " << text.GetText() << " with ID " << ID << "\n";
+
     constructs++;
 }
 
@@ -68,6 +70,7 @@ float Button::getCurr() {
 Slider::Slider(raylib::Vector2 _pos, raylib::Vector2 _dim, raylib::Text _txt, raylib::Vector2 _range) : UIElement(_pos, _dim, _txt) {
     range = _range;
     curr = 0;
+    selected = true;
 }
 
 void Slider::display() {
@@ -141,7 +144,7 @@ void Slider::onOtherClick() {
 }
 
 float Slider::getCurr() {
-    return curr * (range.GetY() - range.GetX());
+    return range.GetX() + curr * (range.GetY() - range.GetX());
 }
 
 Menu::Menu(State &_state) : state(_state) {
@@ -150,6 +153,7 @@ Menu::Menu(State &_state) : state(_state) {
 
 void Menu::addElement(Element ele) {
     elements.push_back(ele);
+    std::cout << "Added element with ID " << ele.first->getID() << " in group " << ele.second << "\n";
 }
 
 void Menu::display() {
@@ -187,45 +191,59 @@ void Menu::onClick(raylib::Vector2 pos) {
                 switch (ptr->getID()) {
                     case 0:
                         algo = MERGE;
+                        std::cout << "Registered MERGE SORT\n";
                         break;
                     case 1:
                         algo = QUICK;
+                        std::cout << "Registered QUICK SORT\n";
                         break;
                     case 2:
                         algo = INSERTION;
+                        std::cout << "Registered INSERTION SORT\n";
                         break;
                     case 3:
                         algo = SELECTION;
+                        std::cout << "Registered SELECTION SORT\n";
                         break;
                     default:
                         algo = MERGE;
+                        std::cout << "Registered MERGE SORT (DEF)\n";
                         break;
                 }
             } else if (grp == 3) {
                 switch (ptr->getID()) {
                     case 4:
                         state.status = RANDOM;
+                        std::cout << "Registered RANDOM\n";
                         break;
                     case 5:
                         state.status = SORTED;
+                        std::cout << "Registered SORTED\n";
                         break;
                     case 6:
                         state.status = REVERSE;
+                        std::cout << "Registered REVERSE\n";
                         break;
                     default:
                         state.status = RANDOM;
+                        std::cout << "Registered RANDOM (DEF)\n";
                         break;
                 }
             } else if (grp == 0) {
                 switch (ptr->getID()) {
                     case 8:
                         state.vec_size = ptr->getCurr();
+                        std::cout << "Registered VEC SIZE as: " << state.vec_size << "\n";
                         break;
                     case 9:
                         state.fps = ptr->getCurr();
+                        std::cout << "Registered FPS as: " << state.fps << "\n";
                         break;
                     default:
+                        state.vec_size = 5;
                         state.fps = 60;
+                        std::cout << "Registered VEC SIZE (def) as: " << state.vec_size;
+                        std::cout << "\nRegistered FPS (def) as: " << state.fps << "\n";
                         break;
                 }
             }

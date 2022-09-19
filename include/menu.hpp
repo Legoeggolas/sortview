@@ -1,6 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
 
+#include <iostream>
 #include <memory>
 #include <string>
 #include <utility>

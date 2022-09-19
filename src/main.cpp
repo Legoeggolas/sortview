@@ -8,6 +8,10 @@
 #include "../include/sortview.hpp"
 #include "../include/state.hpp"
 
+#ifndef CON
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#endif
+
 int main() {
     int const screenWidth = 1920;
     int const screenHeight = 1080;
@@ -62,18 +66,28 @@ int main() {
                 switch (menu.algo) {
                     case MERGE:
                         m_sort(state.vec, 0, state.vec.size(), *msv);
+                        std::cout << "Ran msort"
+                                  << "\n";
                         break;
                     case QUICK:
                         q_sort(state.vec, 0, state.vec.size(), *msv);
+                        std::cout << "Ran qsort"
+                                  << "\n";
                         break;
                     case INSERTION:
                         in_sort(state.vec, 0, state.vec.size(), *msv);
+                        std::cout << "Ran insort"
+                                  << "\n";
                         break;
                     case SELECTION:
                         sel_sort(state.vec, 0, state.vec.size(), *msv);
+                        std::cout << "Ran selsort"
+                                  << "\n";
                         break;
                     default:
                         m_sort(state.vec, 0, state.vec.size(), *msv);
+                        std::cout << "Ran msort (def)"
+                                  << "\n";
                         break;
                 }
 
