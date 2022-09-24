@@ -16,11 +16,11 @@ void merge(std::vector<int> &vec,
 
         if (vec[beginFirst] <= vec[beginSecond]) {
             *it = vec[beginFirst];
-            viewer.read(beginFirst);
+            viewer.write(0, 0, true);
             beginFirst++;
         } else {
             *it = vec[beginSecond];
-            viewer.read(beginSecond);
+            viewer.write(0, 0, true);
             beginSecond++;
         }
 
@@ -29,15 +29,15 @@ void merge(std::vector<int> &vec,
 
     while (beginFirst != endFirst) {
         *it = vec[beginFirst];
-        viewer.read(beginFirst);
         it++;
+        viewer.write(0, 0, true);
         beginFirst++;
     }
 
     while (beginSecond != endSecond) {
         *it = vec[beginSecond];
-        viewer.read(beginSecond);
         it++;
+        viewer.write(0, 0, true);
         beginSecond++;
     }
 

@@ -16,7 +16,11 @@
 enum OP { READ,
           WRITE,
           SWAP,
-          COMPARE };
+          COMPARE,
+          AUXREAD,
+          AUXWRITE,
+          AUXSWAP,
+          AUXCOMPARE };
 
 /**
  * @brief A utility class that stores the data related to a single operation.
@@ -29,11 +33,12 @@ class QueueItem {
     int val;
 
     /**
-     * @brief Construct a new Queue Item object.
+     * @brief Construct a new Queue Item object
      *
      * @param _type The type of the operation, supports the OP enumerator.
      * @param _pos The vector position this operation was performed on.
      * @param _val Optional. The updated value in this position. Defaults to 0.
+     * @param _aux Optional. Whether the Item is for an auxiliary action or not. Defaults to false.
      */
     QueueItem(OP _type, size_t _pos, int _val = 0);
 
@@ -43,7 +48,7 @@ class QueueItem {
      * @param _type The type of the operation, supports the OP enumerator.
      * @param _pos A pair of vector positions this operation was performed on.
      */
-    QueueItem(OP _type, std::pair<size_t, size_t> _pos);
+    QueueItem(OP _type, std::pair<size_t, size_t> _pos, int _val = 0);
 
     /**
      * @brief Checks whether a given position exists inside a QueueItem.
@@ -70,11 +75,16 @@ class SortViewer {
     int elementLowerBound;           // the minimum possible value of an element
     std::deque<QueueItem> opBuffer;  // a queue of operations performed by an algorithm
 
-    static raylib::Color const readColor;
-    static raylib::Color const writeColor;
-    static raylib::Color const swapColor;
-    static raylib::Color const compColor;
-    static raylib::Color const elementColor;
+    static raylib::Color const readColor;     // display color of an element being read
+    static raylib::Color const writeColor;    // display color of an element being written
+    static raylib::Color const swapColor;     // display color for a pair of elements being swapped
+    static raylib::Color const compColor;     // display color for a pair of elements being compared
+    static raylib::Color const elementColor;  // display color of an element not being operated on
+
+    size_t reads;       // total number of array reads (comparisons)
+    size_t aux_reads;   // total number of auxiliary reads
+    size_t writes;      // total number of array writes
+    size_t aux_writes;  // total number of auxiliary writes
 
    public:
     std::deque<QueueItem>::iterator currOpBufferItem;  // public iterator to the operation buffer
@@ -115,14 +125,14 @@ class SortViewer {
      * @param pos The position that gets written to.
      * @param value The value that gets written to this position.
      */
-    void write(size_t pos, int value);
+    void write(size_t pos, int value, bool aux = false);
 
     /**
      * @brief Records a read operation.
      *
      * @param pos The position that gets read from.
      */
-    void read(size_t pos);
+    void read(size_t pos, bool aux = false);  // TODO: Deprecate read() since it isn't used anywhere
 
     /**
      * @brief Records a comparison operation
@@ -130,7 +140,7 @@ class SortViewer {
      * @param pos One of the positions being compared.
      * @param other The other position being compared.
      */
-    void compare(size_t pos, size_t other);
+    void compare(size_t pos, size_t other, bool aux = false);
 
     /**
      * @brief Records a swap operation.
@@ -138,7 +148,7 @@ class SortViewer {
      * @param pos One of the positions having their values swapped.
      * @param other The other position having its value swapped.
      */
-    void swap(size_t pos, size_t other);
+    void swap(size_t pos, size_t other, bool aux = false);
 
     /**
      * @brief Displays the current state of the internal vector.
