@@ -1,23 +1,17 @@
 # sortview
-A sorting visualizer written in C++ using Raylib.
-Currently supports:
+A sorting visualizer written in C/++ using Raylib.
+Supports:
 * Merge Sort
 * Quick Sort
 * Selection Sort
 * Insertion Sort
-
-Planned to include:
-* Nothing! All planned algorithms have been added.
 
 Features:
 * Different indicators for reads and writes.
 * A menu with selectable algorithms
 * Adjustable vector size
 * Pre-sorted / Reverse-sorted orientatons
-
-Features not yet added:
 * Stat counter (number of swaps/writes/reads/etc)
-
 
 # Made Using
 * Raylib 4.2
