@@ -10,8 +10,8 @@ Features:
 * Different indicators for reads and writes.
 * A menu with selectable algorithms
 * Adjustable vector size
-* Pre-sorted / Reverse-sorted orientatons
-* Stat counter (number of swaps/writes/reads/etc)
+* Random / Pre-sorted / Reverse-sorted array orientations
+* Stat counter (Reads, Writes, and Auxiliary variants of both)
 
 # Made Using
 * Raylib 4.2
